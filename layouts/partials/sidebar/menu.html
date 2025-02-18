@@ -8,9 +8,20 @@
             {{ if eq (len $menu_item.URL) 0 }}
                 <li class="heading">{{ $menu_item.Name }}</li>
             {{ else if $menu_item.External }}
-                <li class="bullet">
-                    <a href="{{ $menu_item.URL }}" target="_blank" rel="noopener noreferrer">{{ $menu_item.Name }}</a>
-                </li>
+                {{ if eq $menu_item.Name "Active Projects" }}
+                    <li class="heading">
+                        <a href="{{ $menu_item.URL }}">{{ $menu_item.Name }}</a>
+                    </li>
+                    {{ range $.Site.Params.project_links }}
+                        <li class="bullet">
+                            <a href="{{ .URL }}" target="_blank" rel="noopener noreferrer">{{ .Name }}</a>
+                        </li>
+                    {{ end }}
+                {{ else }}
+                    <li class="bullet">
+                        <a href="{{ $menu_item.URL }}" target="_blank" rel="noopener noreferrer">{{ $menu_item.Name }}</a>
+                    </li>
+                {{ end }}
             {{ end }}
 
             {{ range $sections }}

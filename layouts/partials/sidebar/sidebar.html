@@ -1,3 +1,13 @@
+<!-- Mobile hamburger menu -->
+<button class="hamburger-menu" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+<!-- Overlay for mobile sidebar -->
+<div class="sidebar-overlay"></div>
+
 <aside class="sidebar">
     <div class="container sidebar-sticky">
         {{ partial "light_dark.html" . }}
@@ -5,5 +15,29 @@
         {{ partial "sidebar/menu.html" . }}
         {{ partial "sidebar/socials.html" . }}
         {{ partial "sidebar/copyright.html" . }}
-  </div>
+    </div>
 </aside>
+
+<script>
+(function() {
+    const hamburger = document.querySelector('.hamburger-menu');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+
+    function toggleMenu() {
+        hamburger.classList.toggle('active');
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+            toggleMenu();
+        }
+    });
+})();
+</script>
